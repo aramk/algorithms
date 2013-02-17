@@ -1,7 +1,6 @@
 def merge(a, b):
 	'''
-	Take two sorted lists, run a loop and take smallest of element of each given their
-	current index until said index reaches the end of its list
+	Merges two sorted lists.
 	'''
 	indexA = 0
 	indexB = 0
@@ -15,15 +14,32 @@ def merge(a, b):
 		else:
 			c.append(currB)
 			indexB += 1
-
 	if indexA < len(a):
 		c += a[indexA:]
 	elif indexB < len(b):
 		c += b[indexB:]
-
 	return c
 
-#print merge([10,13,15], [2,14,16])
+def merge2(A, p, q, r):
+	'''
+	Merges two sorted lists which exist in a single list.
+	A[p:q] is the first sorted list, A[q:r] is the second.
+	Uses a sentinel for each sublist. Merges in situ.
+	'''
+	n1 = q-p
+	n2 = r-q
+	i = j = 0
+	infinity = float('inf')
+	sentinel = [infinity]
+	L = A[p:q] + sentinel
+	R = A[q:r] + sentinel
+	for k in xrange(p, r):
+		if L[i] <= R[j]:
+			A[k] = L[i]
+			i += 1
+		else:
+			A[k] = R[j]
+			j += 1
 
 def half_list(a):
 	return a[:len(a)/2]
@@ -31,12 +47,7 @@ def half_list(a):
 def split_list(a):
 	return (a[:len(a)/2], a[len(a)/2:])
 
-# print split_list([2,4,2,1,4,3,4])
-
 def mergesort_r(a):
-	'''
-	Take a list and recursively merge each half
-	'''
 	if len(a) == 0:
 		return []
 	elif len(a) == 1:
@@ -47,5 +58,14 @@ def mergesort_r(a):
 		right = mergesort_r(right)
 		return merge(left, right)
 
-print mergesort_r([2,3,1,4,6])
+def mergesort_r2(A, p, r):
+	if p >= r - 1:
+		return
+	else:
+		mid = (p + r) / 2
+		mergesort_r2(A, p, mid)
+		mergesort_r2(A, mid, r)
+		merge2(A, p, mid, r)
+		return A
 
+print mergesort_r2([2,3,1,4,6], 0, 5)
