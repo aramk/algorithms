@@ -51,3 +51,7 @@ Thumbs.db
 target/
 bin/
 .idea/
+
+# Python #
+############
+*.pyc

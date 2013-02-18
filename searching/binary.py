@@ -15,13 +15,6 @@ def _binary_search_r(item, lst, low, high):
 	else:
 		return _binary_search_r(item, lst, mid + 1, high)
 
-print binary_search_r(4, [1,2,3,4])
-# If we didn't have the mid + 1 in the else branch, this would cause a stack overflow
-print binary_search_r(5, [1,2,3,4])
-print binary_search_r(1, [1,2,3,4])
-print binary_search_r(2, [1,2,3])
-print binary_search_r(1, [])
-
 def binary_search_i(item, lst):
 	return _binary_search_i(item, lst, 0, len(lst))
 
@@ -37,8 +30,11 @@ def _binary_search_i(item, lst, low, high):
 			high = mid
 	return None
 
-print binary_search_i(4, [1,2,3,4])
-print binary_search_i(5, [1,2,3,4])
-print binary_search_i(1, [1,2,3,4])
-print binary_search_i(2, [1,2,3])
-print binary_search_i(1, [])
+def binary_sum(sum, lst):
+	'''Finds whether the given sum exists from the addition of two items in the sorted list'''
+	for i in xrange(0, len(lst)):
+		rem = sum - lst[i]
+		j = binary_search_i(rem, lst)
+		if j:
+			return (i, j)
+	return None
