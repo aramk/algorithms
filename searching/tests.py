@@ -1,6 +1,10 @@
 import unittest
-from binary import *
 from linear import *
+from binary import *
+
+class LinearTest(unittest.TestCase):
+	def runTest(self):
+		self.assertEqual(linear_search(4, [3,2,4,1]), 2);
 
 class BinaryTest(unittest.TestCase):
 	def runTest(self):
@@ -15,10 +19,6 @@ class BinaryTest(unittest.TestCase):
 		self.assertEqual(binary_search_i(1, []), None);
 
 		self.assertEqual(binary_sum(11, [2,5,6,3,8]), (1,2));
-
-class LinearTest(unittest.TestCase):
-	def runTest(self):
-		self.assertEqual(linear_search(4, [3,2,4,1]), 2);
 
 if __name__ == '__main__':
     unittest.main()
