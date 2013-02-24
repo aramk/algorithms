@@ -20,17 +20,17 @@ def max_sub_cross(A, low, mid, high):
 		rightSum = leftSum = -float('inf')
 		maxLeft = maxRight = mid
 		currSum = 0
-		for i in xrange(mid - 1, low - 1, -1):
+		for i in xrange(mid, low, -1):
 			currSum += A[i]
 			if currSum > leftSum:
 				leftSum = currSum
 				maxLeft = i
 		currSum = 0
-		for i in xrange(mid, high):
+		for i in xrange(mid + 1, high):
 			currSum += A[i]
 			if currSum > rightSum:
 				rightSum = currSum
-				maxRight = i
+				maxRight = i + 1
 		return (maxLeft, maxRight, leftSum + rightSum)
 
 def delta_list(A):
@@ -60,3 +60,34 @@ def _max_sub_r(A, low, high):
 			return right
 		else:
 			return cross
+
+def max_sub_linear(A):
+	'''Linear version of finding maximum sub-array. Returns tuple as (i, j, sum).'''
+	if len(A) == 0:
+		return None
+	elif len(A) == 1:
+		return (0, 1, A[0])
+	else:
+		maxi, maxj, maxSum = 0, 1, A[0]
+		poti = 0
+		currSum = 0
+		for i in xrange(0, len(A)):
+			currSum += A[i]
+			if currSum > maxSum:
+				maxi = poti
+				maxj = i + 1
+				maxSum = currSum
+			elif currSum <= 0:
+				poti = i + 1
+				currSum = 0
+		return (maxi, maxj, maxSum)
+
+A = [4,2,5,6,4,8,10,4]
+D = delta_list(A)
+print D
+print max_sub(A)
+print max_sub_r(A)
+print max_sub_linear(D)
+
+
+
