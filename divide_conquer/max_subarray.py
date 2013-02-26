@@ -62,7 +62,7 @@ def _max_sub_r(A, low, high):
 			return cross
 
 def max_sub_linear(A):
-	'''Linear version of finding maximum sub-array. Returns tuple as (i, j, sum).'''
+	'''Linear version of finding maximum sub-array. Returns tuple as (i, j, sum). Expects A to be the first-difference/delta list.'''
 	if len(A) == 0:
 		return None
 	elif len(A) == 1:
@@ -81,13 +81,3 @@ def max_sub_linear(A):
 				poti = i + 1
 				currSum = 0
 		return (maxi, maxj, maxSum)
-
-A = [4,2,5,6,4,8,10,4]
-D = delta_list(A)
-print D
-print max_sub(A)
-print max_sub_r(A)
-print max_sub_linear(D)
-
-
-
