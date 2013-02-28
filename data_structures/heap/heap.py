@@ -18,11 +18,12 @@ class Heap(list):
         maxi = i
         if left != None and not self.valid_cond(i, left):
             maxi = left
-        if right != None and not self.valid_cond(i, maxi):
+        if right != None and not self.valid_cond(maxi, right):
             maxi = right
         if maxi != i:
             self.swap(i, maxi)
             self.heapify(maxi)
+        return self
 
     def swap(self, i, j):
         tmp = self[i]
@@ -51,7 +52,3 @@ class Heap(list):
             return Heap(result)
         except TypeError:
             return result
-
-h = Heap([1, 2, 3])
-h.heapify(0)
-print h
