@@ -1,5 +1,12 @@
 class Heap(list):
 
+    _length = None
+
+    def __init__(self, *args):
+        super(Heap, self).__init__(*args)
+        self.build()
+        self._length = len(self)
+
     def root(self):
         return self.valid_index(0)
 
@@ -25,6 +32,20 @@ class Heap(list):
             self.heapify(maxi)
         return self
 
+    def build(self):
+        for i in xrange(len(self)/2 - 1, -1, -1):
+            self.heapify(i)
+        return self
+
+    def sort(self):
+        self.build()
+        self._length = len(self)
+        for i in xrange(len(self) - 1, 0, -1):
+            self.swap(self.root(), i)
+            self._length -= 1;
+            self.heapify(self.root())
+        return self
+
     def swap(self, i, j):
         tmp = self[i]
         self[i] = self[j]
@@ -45,6 +66,29 @@ class Heap(list):
             return self.__getitem__(i)
         except:
             return None
+
+    # def __str__(self):
+    #     return '[' + ', '.join([str(x) for x in self[:len(self)]]) + ']'
+
+    def append(self, *args):
+        super(Heap, self).append(*args)
+        self._updateToRealLength();
+
+    def __len__(self):
+        return self._length if self._length != None else self.realLength()
+
+    def realLength(self):
+        return super(Heap, self).__len__()
+
+    def _updateToRealLength(self):
+        # TODO inelegant
+        self._length = super(Heap, self).__len__()
+
+    def _updateLength(self):
+        # TODO inelegant
+        diff = self._length - self.realLength()
+        if diff > 0:
+            self.extend([-float('inf')] * diff)
 
     def __getitem__(self, item):
         result = list.__getitem__(self, item)
