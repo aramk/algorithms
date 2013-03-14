@@ -4,26 +4,22 @@ def quicksort_r(lst):
 	elif len(lst) == 1:
 		return lst
 	else:
-		(lst, pivot) = partition(lst)
+		(lst, pivot) = partition(lst, 0, len(lst))
 		left = quicksort_r(lst[:pivot])
 		right = quicksort_r(lst[pivot+1:])
 	return left + [lst[pivot]] + right
 
-def partition(lst):
-	pivot = lst[-1]
+def partition(A, p, r):
+	pivotIndex = r-1
 	swapIndex = 0
-	for index in xrange(len(lst)-1):
-		currVal = lst[index]
-		if (currVal < pivot):
-			oldSwap = lst[swapIndex]
-			lst[swapIndex] = currVal
-			lst[index] = oldSwap
+	for i in xrange(r-1):
+		if A[i] < A[pivotIndex]:
+			swap(A, swapIndex, i)
 			swapIndex += 1
-	oldSwap = lst[swapIndex]
-	lst[swapIndex] = pivot
-	lst[-1] = oldSwap
-	return (lst, swapIndex)
+	swap(A, swapIndex, pivotIndex)
+	return (A, swapIndex)
 
-print quicksort_r([3,2,5,1,4,3])
-
-# print partition([3,2,5,1,4,3])
+def swap(A, i, j):
+	tmp = A[i]
+	A[i] = A[j]
+	A[j] = tmp
