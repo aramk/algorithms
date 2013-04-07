@@ -9,7 +9,7 @@ class Node:
         return '(%s,%s,%s)' % (self.name, str(self.pre), str(self.post))
 
 class Edge:
-    def __init__(self, u = None, v = None, cost = None, pre = None, post = None, directed = False, visited = False, next = None):
+    def __init__(self, u, v, cost = None, pre = None, post = None, directed = False, visited = False, next = None):
         self.u = u
         self.v = v
         self.directed = directed

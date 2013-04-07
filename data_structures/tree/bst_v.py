@@ -1,4 +1,5 @@
 import random
+from collections import deque
 
 class BST:
 
@@ -86,3 +87,27 @@ class BST:
 		while curr.right:
 			curr = curr.right
 		return curr
+
+	def dfs(self, visitor):
+		visitor(self)
+		if self.left:
+			self.left.dfs(visitor)
+		if self.right:
+			self.right.dfs(visitor)
+
+	def bfs(self, visitor):
+		to_visit = deque([self])
+		while len(to_visit):
+			node = to_visit.popleft()
+			visitor(node)
+			if node.left:
+				to_visit.append(node.left)
+			if node.right:
+				to_visit.append(node.right)
+
+def visitor(node):
+	print node.val
+
+# a.dfs(visitor)
+a.bfs(visitor)
+
